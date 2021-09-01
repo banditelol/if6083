@@ -66,6 +66,10 @@ Hal ini bisa langsung kita implementasikan pada fungsi `image rgb_to_grayscale(i
 
 ## Shift Image Color
 
+Selanjutnya kita menambahkan faktor secara konstan ke salah satu channel dari gambar untuk menjadikan pixel tersebut lebih intens. Signature dari fungsinya seperti berikut `void shift_image(image im, int c, float v);`. dengan fungsi ini, semua pixel pada channel `c` akan bertambah intensitasnya sebesar `v`. Nanti kita akan coba untuk mengubah semua channel pada gambar sebesar .4 atau 40%.
+
+> Pada tahap ini bila nilai pixel diluar [0,1] akan dibiarkan (sehingga bisa jadi overflow dan mnejadi gelap)
+
 ## Clamp Image
 
 ## RGB to HSV

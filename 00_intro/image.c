@@ -71,7 +71,15 @@ image rgb_to_grayscale(image im, int channel)
 
 void shift_image(image im, int c, float v)
 {
-    // TODO Fill this in
+    assert(im.c >= c);
+    for (int j=0; j<im.h; ++j)
+    {
+        for (int i =0; i<im.w; ++i)
+        {
+            float p = get_pixel(im,i,j,c);
+            set_pixel(im,i,j,c,p+v);
+        }
+    }
 }
 
 void clamp_image(image im)
@@ -181,7 +189,20 @@ void test_grayscale(){
     free_image(gray);
 }
 
+void test_shift(){
+    image im = make_image(256,256,3);
+    int out_channel = 3;
+    printf("Created image with size of %d x %d x %d\n",
+        im.h,im.w, im.c);
+    draw_patern(im);
+    shift_image(im, 0, .4);
+    shift_image(im, 1, .4);
+    shift_image(im, 2, .4);
+    im_to_ppm(im, "test_shift_overflow.ppm");
+    free_image(im);
+}
+
 int main(void) {
-    test_grayscale();
+    test_shift();
     return EXIT_SUCCESS;
 }
