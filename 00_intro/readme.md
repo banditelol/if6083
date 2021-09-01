@@ -70,7 +70,13 @@ Selanjutnya kita menambahkan faktor secara konstan ke salah satu channel dari ga
 
 > Pada tahap ini bila nilai pixel diluar [0,1] akan dibiarkan (sehingga bisa jadi overflow dan mnejadi gelap)
 
-## Clamp Image
+## Clamping Image Value
+
+Nilai pixel pada gambar perlu dibatasi, karena umumnya gambar disimpan dalam bentuk array of bytes dimana tiap bytesnya merupakan `unsigned byte` dalam tange 0-255. 0 merepresentasikan pixel yang gelap (hitam) dan 255 pixel yang sangat intens.
+
+Walau kita menggunakan float [0,1] untuk merepresentasikan gambar, kita masih perlu mengconvert nilai tersebut ke bytes saat akan disimpan sebagai gambar. Bila saat disimpan nilainya melebihi batas bytes, nilai tersebut akan overflow dan kembali ke nilai yang sangat kecil. Oleh karena itu pixel yang overflow menjadi gelap.
+
+Untuk memastikan gambar tetap berada pada range [0,1] kita perlu mengimplementasi clamping. Dengan signature `void clamp_image(image im);` dengan memodifikasi gambar langsung in-place.
 
 ## RGB to HSV
 

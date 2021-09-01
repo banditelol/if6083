@@ -7,6 +7,10 @@ typedef struct {
     float *data;
 } image;
 
+// Utilities function
+int clamp_int(int val, int lo, int hi);
+float clamp_float(float val, float lo, float hi);
+
 // Basic Operation
 float get_pixel(image im, int x, int y, int c);
 void set_pixel(image im, int x, int y, int c, float v);
