@@ -53,19 +53,17 @@ void set_pixel(image im, int x, int y, int c, float v){
     im.data[x + y*im.w + c*im.w*im.h] = v;
 }
 
-image rgb_to_grayscale(image im)
+image rgb_to_grayscale(image im, int channel)
 {
     assert(im.c == 3);
-    image gray = make_image(im.w, im.h, 3);
+    image gray = make_image(im.w, im.h, channel);
     float r = .299, g = .587, b = .114;
     for (int j=0; j<im.h; ++j)
     {
         for (int i =0; i<im.w; ++i)
         {
             float y = get_pixel(im,i,j,0) * r + get_pixel(im,i,j,1)*g + get_pixel(im,i,j,2)*b;
-            set_pixel(gray,i,j,0,y);
-            set_pixel(gray,i,j,1,y);
-            set_pixel(gray,i,j,2,y);
+            for (int k=0; k<channel; ++k) {set_pixel(gray,i,j,k,y);}
         }
     }
     return gray;
@@ -173,10 +171,11 @@ void test_copy() {
 
 void test_grayscale(){
     image im = make_image(256,256,3);
+    int out_channel = 3;
     printf("Created image with size of %d x %d x %d\n",
         im.h,im.w, im.c);
     draw_patern(im);
-    image gray = rgb_to_grayscale(im);
+    image gray = rgb_to_grayscale(im, out_channel);
     im_to_ppm(gray, "test_grayscale.ppm");
     free_image(im);
     free_image(gray);

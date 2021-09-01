@@ -62,4 +62,12 @@ Terdapat beberapa pendekatan yang bisa dilakukan mulai dari _gamma compression_ 
 Y' = 0.299 R' + 0.587 G' + 0.114 B'
 ```
 
-Hal ini bisa langsung kita implementasikan pada fungsi `image rgb_to_grayscale(image im)`
+Hal ini bisa langsung kita implementasikan pada fungsi `image rgb_to_grayscale(image im)` karena satu dan lain hal, jadinya untuk grayscale ini ada dua versi, `rg_to_grayscale_expand(image im)` digunakan untuk mempermudah pembuatan gambar ppm.
+
+## Shift Image Color
+
+## Clamp Image
+
+## RGB to HSV
+
+## HSV to RGB
