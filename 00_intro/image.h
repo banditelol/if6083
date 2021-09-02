@@ -20,9 +20,15 @@ void shift_image(image im, int c, float v);
 void clamp_image(image im);
 void rgb_to_hsv(image im);
 void hsv_to_rgb(image im);
+void rgb_to_hcl(image im);
+void hcl_to_rgb(image im);
+void scale_image(image im, int c, float v);
 
 // Additional Functions
 image make_image(int w, int h, int c);
 image load_image(char* filename);
 void save_image(image im, const char* filename);
 void free_image(image im);
+
+void draw_pattern(image im);
+void draw_boxes(image im);

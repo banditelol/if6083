@@ -13,7 +13,7 @@ Create C program for handling image with:
 4. rgb_to_grayscale
 5. shift_image
 6. clamp_image
-7. rgb_to_hsv
+7. rgb_to_hsv 
 8. hsv_to_rgb
 
 ## Informasi Pengerjaan
@@ -80,4 +80,32 @@ Untuk memastikan gambar tetap berada pada range [0,1] kita perlu mengimplementas
 
 ## RGB to HSV
 
+Selama ini kita menggunakan color space RGB (red green blue), terdapat color space lain yang lebih memudahkan dalam melakukan manipulasi gambar, yaitu Hue Saturation dan Value. Untuk menubah warna dari satu space ke yang lain bisa digunakan rumus berikut:
+``` python
+# Menghitung Value
+V = max(R,G,B)
+
+# Menghitung Saturation
+m = min(R,G,B)
+C = V - m # it can be seen as contrast
+S = C / V # bila V = 0, S = 0
+
+# Menghitung Hue
+if (C == 0):
+    Hprime = 0
+elif (V == R):
+    Hprime = (G - B)/C
+elif (V == G):
+    Hprime = (B - R)/C + 2
+elif (V == B):
+    Hprime = (R - G)/C + 4
+
+if (Hprime < 0):
+    H = Hprime/6 + 1
+else:
+    H = Hprime/6
+```
+
 ## HSV to RGB
+
+Katanya sih tinggal dibalik, tapi agak repot ternyata. Lengkapnya mah bisa refer ke wikipedianya langsung aja.
