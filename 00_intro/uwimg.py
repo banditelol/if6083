@@ -34,7 +34,7 @@ set_pixel = lib.set_pixel
 set_pixel.argtypes = [IMAGE, c_int, c_int, c_int, c_float]
 
 rgb_to_grayscale = lib.rgb_to_grayscale
-rgb_to_grayscale.argtypes = [IMAGE]
+rgb_to_grayscale.argtypes = [IMAGE, c_int]
 rgb_to_grayscale.restype = IMAGE
 
 rgb_to_hsv = lib.rgb_to_hsv
