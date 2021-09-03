@@ -81,6 +81,7 @@ Untuk memastikan gambar tetap berada pada range [0,1] kita perlu mengimplementas
 ## RGB to HSV
 
 Selama ini kita menggunakan color space RGB (red green blue), terdapat color space lain yang lebih memudahkan dalam melakukan manipulasi gambar, yaitu Hue Saturation dan Value. Untuk menubah warna dari satu space ke yang lain bisa digunakan rumus berikut:
+
 ``` python
 # Menghitung Value
 V = max(R,G,B)
@@ -105,7 +106,6 @@ if (Hprime < 0):
 else:
     H = Hprime/6
 ```
-
-## HSV to RGB
+ ## HSV to RGB
 
 Katanya sih tinggal dibalik, tapi agak repot ternyata. Lengkapnya mah bisa refer ke wikipedianya langsung aja.

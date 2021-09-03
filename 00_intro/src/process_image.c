@@ -11,25 +11,11 @@ float HCLy0 = 100;
 float HCLmaxL = 0.530454533953517; // == exp(HCLgamma / HCLy0) - 0.5
 float PI = 3.1415926536;
 
-image make_image(int h,int w,int c) {
-    image im = {
-        .h = h,
-        .w = w,
-        .c = c
-    };
-    im.data = calloc(h*w*c, sizeof(float));
-    return im;
-};
-
 image copy_image(image im)
 {
     image copy = make_image(im.w, im.h, im.c);
     memcpy(copy.data, im.data, sizeof(float)*(im.h*im.w*im.c));
     return copy;
-}
-
-void free_image(image im) {
-    free(im.data);
 }
 
 int clamp_integer(int val, int lo, int hi) {
@@ -177,7 +163,7 @@ void hsv_to_rgb(image im)
             float m = v - c;
 
             float hprime = h*6;
-            float x = c * (1 - (fmod(hprime, 2)-1));
+            float x = c * (1 - fabs(fmod(hprime, 2)-1));
             float r1,g1,b1;
             // Ini bisa implementasi LUT / make shift select sih padahal
             if (hprime <= 1){r1 = c; g1 = x; b1 = 0;}
@@ -256,104 +242,4 @@ void draw_boxes(image im){
             }
         }
     }
-}
-
-void test_get_set(){
-    image im = make_image(256,256,3);
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    im_to_ppm(im, "test_get_set.ppm");
-    free_image(im);
-}
-
-void test_boxes(){
-    image im = make_image(256,256,3);
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_boxes(im);
-    im_to_ppm(im, "test_boxes.ppm");
-    free_image(im);
-}
-
-void test_copy() {
-    image im = make_image(5,5,3);
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    set_pixel(im, 2,2,0,0.7);
-    print_image(im);
-    image cpy = copy_image(im);
-    free_image(im);
-    print_image(cpy);
-    free_image(cpy);
-}
-
-void test_grayscale(){
-    image im = make_image(256,256,3);
-    int out_channel = 3;
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    image gray = rgb_to_grayscale(im, out_channel);
-    im_to_ppm(gray, "test_grayscale.ppm");
-    free_image(im);
-    free_image(gray);
-}
-
-void test_shift(){
-    image im = make_image(256,256,3);
-    int out_channel = 3;
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    shift_image(im, 0, .4);
-    shift_image(im, 1, .4);
-    shift_image(im, 2, .4);
-    im_to_ppm(im, "test_shift_overflow.ppm");
-    free_image(im);
-}
-
-void test_clamp(){
-    image im = make_image(256,256,3);
-    int out_channel = 3;
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    shift_image(im, 0, .4);
-    shift_image(im, 1, .4);
-    shift_image(im, 2, .4);
-    clamp_image(im);
-    im_to_ppm(im, "test_shift_clamped.ppm");
-    free_image(im);
-}
-
-void test_scale(){
-    image im = make_image(256,256,3);
-    int out_channel = 3;
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    scale_image(im, 1, 2);
-    clamp_image(im);
-    im_to_ppm(im, "test_scale_clamped.ppm");
-    free_image(im);
-}
-
-void test_rgb_hsv(){
-    image im = make_image(256,256,3);
-    int out_channel = 3;
-    printf("Created image with size of %d x %d x %d\n",
-        im.h,im.w, im.c);
-    draw_patern(im);
-    rgb_to_hsv(im);
-    shift_image(im, 1, -.4);
-    clamp_image(im);
-    hsv_to_rgb(im);
-    im_to_ppm(im, "test_shift_hsv_shifted.ppm");
-    free_image(im);
-}
-
-int main(void) {
-    test_boxes();
-    return EXIT_SUCCESS;
 }
